@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import com.dariobrux.whosings.R
 import com.dariobrux.whosings.databinding.FragmentSplashBinding
 import com.dariobrux.whosings.common.extension.toMainActivity
@@ -46,8 +47,8 @@ class SplashFragment : Fragment() {
             scaleX = 0.2f
             scaleY = 0.2f
             alpha = 0f
-            animate().scaleX(1f).scaleY(1f).alpha(1f).setDuration(2000).setInterpolator(OvershootInterpolator()).withEndAction {
-//                NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_splashFragment_to_locationFragment)
+            animate().scaleX(1f).scaleY(1f).alpha(1f).setDuration(300).setInterpolator(OvershootInterpolator()).withEndAction {
+                NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_splashFragment_to_loginFragment)
             }.start()
         }
     }
