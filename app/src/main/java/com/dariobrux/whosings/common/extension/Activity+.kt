@@ -1,4 +1,4 @@
-package com.dariobrux.whosings.ui.common.extension
+package com.dariobrux.whosings.common.extension
 
 import android.app.Activity
 import com.dariobrux.whosings.ui.MainActivity

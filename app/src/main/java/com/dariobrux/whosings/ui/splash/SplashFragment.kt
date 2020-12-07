@@ -1,4 +1,4 @@
-package com.dariobrux.whosings.ui
+package com.dariobrux.whosings.ui.splash
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.view.animation.OvershootInterpolator
 import androidx.fragment.app.Fragment
 import com.dariobrux.whosings.R
 import com.dariobrux.whosings.databinding.FragmentSplashBinding
-import com.dariobrux.whosings.ui.common.extension.toMainActivity
+import com.dariobrux.whosings.common.extension.toMainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
