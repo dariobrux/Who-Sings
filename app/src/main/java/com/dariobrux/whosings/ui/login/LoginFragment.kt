@@ -49,8 +49,8 @@ class LoginFragment : Fragment(), View.OnClickListener {
 
         binding?.let {
             viewModel.bind(it.editName)
-            it.cardPlay.setOnClickListener(this)
-            it.cardScores.setOnClickListener(this)
+            it.txtPlay.setOnClickListener(this)
+            it.txtScores.setOnClickListener(this)
         }
 
         viewModel.getLoggedUser().observe(viewLifecycleOwner) {
@@ -61,12 +61,12 @@ class LoginFragment : Fragment(), View.OnClickListener {
 
         viewModel.filledUser.observe(viewLifecycleOwner) {
             if (it.name.isNotEmpty()) {
-                binding?.cardPlay?.run {
+                binding?.txtPlay?.run {
                     isClickable = true
                     alpha = 1f
                 }
             } else {
-                binding?.cardPlay?.run {
+                binding?.txtPlay?.run {
                     isClickable = false
                     alpha = 0.5f
                 }
@@ -87,10 +87,10 @@ class LoginFragment : Fragment(), View.OnClickListener {
     @ExperimentalCoroutinesApi
     override fun onClick(v: View) {
         when (v) {
-            binding?.cardPlay -> {
+            binding?.txtPlay -> {
                 viewModel.insertUser()
             }
-            binding?.cardScores -> {
+            binding?.txtScores -> {
                 NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_loginFragment_to_scoreFragment)
             }
         }

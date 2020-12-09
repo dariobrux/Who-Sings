@@ -37,14 +37,41 @@
             android:layout_height="match_parent"
             tools:context=".ui.login.LoginFragment">
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.25" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.75" />
+
+            <ImageView
+                android:id="@+id/imgLogo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/splash"
+                android:padding="@dimen/large_space"
+                android:scaleType="centerInside"
+                android:src="@drawable/splash"
+                app:layout_constraintEnd_toEndOf="@id/guideRight"
+                app:layout_constraintStart_toStartOf="@id/guideLeft"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.github.florent37.materialtextfield.MaterialTextField
                 android:id="@+id/materialTextField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/regular_space"
-                android:layout_marginTop="@dimen/large_space"
+                android:layout_marginTop="@dimen/regular_space"
                 android:layout_marginEnd="@dimen/regular_space"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imgLogo"
                 app:mtf_animationDuration="500"
                 app:mtf_cardCollapsedHeight="4dp"
                 app:mtf_image="@drawable/user"
@@ -64,94 +91,30 @@
 
             </com.github.florent37.materialtextfield.MaterialTextField>
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardPlay"
+            <TextView
+                android:id="@+id/txtPlay"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/regular_space"
+                android:layout_height="0dp"
                 android:layout_marginTop="@dimen/large_space"
-                android:layout_marginEnd="@dimen/regular_space"
-                app:cardBackgroundColor="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/materialTextField">
+                android:gravity="center"
+                android:padding="@dimen/regular_space"
+                android:text="@string/play_game"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/materialTextField" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/imgPlay"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:contentDescription="@string/play"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/play"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/txtPlay"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/txtPlay"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:gravity="center|start"
-                        android:text="@string/play_game"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/imgPlay"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardScores"
+            <TextView
+                android:id="@+id/txtScores"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/regular_space"
-                android:layout_marginTop="@dimen/regular_space"
-                android:layout_marginEnd="@dimen/regular_space"
-                app:cardBackgroundColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardPlay">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/imgScores"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:contentDescription="@string/scores"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/scores"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/txtScores"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/txtScores"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:gravity="center|start"
-                        android:text="@string/scores"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/imgScores"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.card.MaterialCardView>
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:padding="@dimen/regular_space"
+                android:text="@string/scores"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/txtPlay" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
