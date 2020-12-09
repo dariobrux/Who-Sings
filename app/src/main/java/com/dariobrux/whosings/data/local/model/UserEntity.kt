@@ -14,7 +14,7 @@ import androidx.room.PrimaryKey
  *
  */
 @Entity(tableName = "user")
-data class User(
+data class UserEntity(
 
     @PrimaryKey
     @NonNull

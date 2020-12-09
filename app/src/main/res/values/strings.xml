@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Who Sings</string>
     <string name="splash">Splash</string>
+    <string name="login">Login</string>
+    <string name="title_people">Scores</string>
+    <string name="type_user">Type your user name</string>
+    <string name="play">Play</string>
+    <string name="play_game">Play game</string>
+    <string name="scores">Scores</string>
 </resources>

@@ -1,15 +1,14 @@
 package com.dariobrux.whosings.ui.login
 
+import android.widget.EditText
+import androidx.core.widget.doOnTextChanged
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
-import com.dariobrux.whosings.common.Resource
-import com.dariobrux.whosings.data.local.model.User
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.dariobrux.whosings.data.local.model.UserEntity
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 /**
  *
@@ -21,7 +20,7 @@ import kotlinx.coroutines.launch
  */
 class LoginViewModel @ViewModelInject constructor(private val repository: LoginRepository) : ViewModel() {
 
-//    val loggedUser = MutableLiveData<Resource<User>>()
+    val filledUser: MutableLiveData<UserEntity> = MutableLiveData(UserEntity())
 
     /**
      * Get the logged user
@@ -32,8 +31,32 @@ class LoginViewModel @ViewModelInject constructor(private val repository: LoginR
             emit(it)
         }
     }
-//        viewModelScope.launch {
-//
-//        }
-//    }
+
+    /**
+     * Bind the user name EditText observing its changing text.
+     * Emit the user.
+     * @param editText the EditText for the user name.
+     */
+    fun bind(editText: EditText) {
+        editText.doOnTextChanged { text, _, _, _ ->
+            CoroutineScope(Dispatchers.Main).launch {
+                filledUser.value = UserEntity(text.toString(), false)
+            }
+        }
+    }
+
+    /**
+     * Insert the user in the database.
+     */
+    @ExperimentalCoroutinesApi
+    fun insertUser() = runBlocking {
+        filledUser.value?.let {
+            it.isLogged = true
+            repository.insertUser(it).collect { result ->
+                if (result) {
+                    filledUser.value = it
+                }
+            }
+        }
+    }
 }

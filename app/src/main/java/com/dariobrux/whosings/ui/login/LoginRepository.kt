@@ -2,9 +2,10 @@ package com.dariobrux.whosings.ui.login
 
 import com.dariobrux.whosings.common.Resource
 import com.dariobrux.whosings.data.local.WhoSingsDAO
-import com.dariobrux.whosings.data.local.model.User
+import com.dariobrux.whosings.data.local.model.UserEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import timber.log.Timber
@@ -27,7 +28,7 @@ class LoginRepository @Inject constructor(private val dao: WhoSingsDAO) {
     @ExperimentalCoroutinesApi
     suspend fun getLoggedUser() = flow {
 
-        var result = Resource<User>(Resource.Status.LOADING, null, null)
+        var result = Resource<UserEntity>(Resource.Status.LOADING, null, null)
 
         kotlin.runCatching {
             dao.getLoggedUser()
@@ -41,4 +42,19 @@ class LoginRepository @Inject constructor(private val dao: WhoSingsDAO) {
         emit(result)
     }.flowOn(Dispatchers.IO)
 
+    /**
+     * Insert the user in database.
+     * @param user the user to insert.
+     */
+    @ExperimentalCoroutinesApi
+    suspend fun insertUser(user: UserEntity) = flow {
+
+        kotlin.runCatching {
+            dao.insertUser(user)
+        }.onSuccess {
+            emit(true)
+        }.onFailure {
+            emit(false)
+        }
+    }.flowOn(Dispatchers.IO)
 }

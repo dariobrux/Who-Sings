@@ -1,8 +1,10 @@
 package com.dariobrux.whosings.data.local
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.dariobrux.whosings.data.local.model.User
+import com.dariobrux.whosings.data.local.model.UserEntity
 
 /**
  *
@@ -18,18 +20,18 @@ interface WhoSingsDAO {
 
     /**
      * Get the user logged.
-     * @return the [User] or null.
+     * @return the [UserEntity] or null.
      */
     @Query("Select * from user where isLogged = 1")
-    fun getLoggedUser(): User
+    fun getLoggedUser(): UserEntity
 
-//    /**
-//     * Insert the weather in the database.
-//     * @param weatherEntity: the [WeatherEntity] to insert.
-//     * Use the replacing strategy to override each existing item.
-//     */
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    fun insertWeather(weatherEntity: WeatherEntity)
+    /**
+     * Insert the user in the database.
+     * @param user: the [UserEntity] to insert.
+     * Use the replacing strategy to override each existing item.
+     */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertUser(user: UserEntity)
 //
 //    /**
 //     * Delete all from the database.
