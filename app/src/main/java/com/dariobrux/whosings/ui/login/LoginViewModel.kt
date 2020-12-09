@@ -6,7 +6,8 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.dariobrux.whosings.data.local.model.UserEntity
+import com.dariobrux.whosings.data.database.model.UserEntity
+import com.dariobrux.whosings.data.repository.Repository
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 
@@ -18,7 +19,7 @@ import kotlinx.coroutines.flow.collect
  * Fragment and Repository.
  *
  */
-class LoginViewModel @ViewModelInject constructor(private val repository: LoginRepository) : ViewModel() {
+class LoginViewModel @ViewModelInject constructor(private val repository: Repository) : ViewModel() {
 
     val filledUser: MutableLiveData<UserEntity> = MutableLiveData(UserEntity())
 

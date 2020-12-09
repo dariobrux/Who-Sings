@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.NavHostFragment
 import com.dariobrux.whosings.R
 import com.dariobrux.whosings.common.Resource
 import com.dariobrux.whosings.common.extension.toMainActivity
@@ -46,7 +47,11 @@ class LoginFragment : Fragment(), View.OnClickListener {
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        viewModel.bind(binding!!.editName)
+        binding?.let {
+            viewModel.bind(it.editName)
+            it.cardPlay.setOnClickListener(this)
+            it.cardScores.setOnClickListener(this)
+        }
 
         viewModel.getLoggedUser().observe(viewLifecycleOwner) {
             if (it.status == Resource.Status.SUCCESS && it.data != null) {
@@ -67,9 +72,6 @@ class LoginFragment : Fragment(), View.OnClickListener {
                 }
             }
         }
-
-        binding?.cardPlay?.setOnClickListener(this)
-
     }
 
     override fun onDestroyView() {
@@ -87,6 +89,9 @@ class LoginFragment : Fragment(), View.OnClickListener {
         when (v) {
             binding?.cardPlay -> {
                 viewModel.insertUser()
+            }
+            binding?.cardScores -> {
+                NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_loginFragment_to_scoreFragment)
             }
         }
     }

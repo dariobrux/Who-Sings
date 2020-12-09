@@ -1,11 +1,10 @@
-package com.dariobrux.whosings.ui.login
+package com.dariobrux.whosings.data.repository
 
 import com.dariobrux.whosings.common.Resource
-import com.dariobrux.whosings.data.local.WhoSingsDAO
-import com.dariobrux.whosings.data.local.model.UserEntity
+import com.dariobrux.whosings.data.database.WhoSingsDAO
+import com.dariobrux.whosings.data.database.model.UserEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import timber.log.Timber
@@ -19,7 +18,7 @@ import javax.inject.Inject
  * between the ViewModel and the Database.
  *
  */
-class LoginRepository @Inject constructor(private val dao: WhoSingsDAO) {
+class Repository @Inject constructor(private val dao: WhoSingsDAO) {
 
     /**
      * Get the logged user.
@@ -56,5 +55,24 @@ class LoginRepository @Inject constructor(private val dao: WhoSingsDAO) {
         }.onFailure {
             emit(false)
         }
+    }.flowOn(Dispatchers.IO)
+
+    /**
+     * Get the list of all the stored users.
+     */
+    @ExperimentalCoroutinesApi
+    suspend fun getUsers() = flow {
+
+        var result: Resource<List<UserEntity>> = Resource.loading(emptyList())
+
+        kotlin.runCatching {
+            dao.getUsers()
+        }.onSuccess {
+            result = Resource.success(it ?: emptyList())
+        }.onFailure {
+            result = Resource.success(emptyList())
+        }
+
+        emit(result)
     }.flowOn(Dispatchers.IO)
 }

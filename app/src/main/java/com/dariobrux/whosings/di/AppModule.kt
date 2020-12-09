@@ -1,9 +1,9 @@
 package com.dariobrux.whosings.di
 
 import android.content.Context
-import com.dariobrux.whosings.data.local.WhoSingsDAO
-import com.dariobrux.whosings.data.local.WhoSingsDatabase
-import com.dariobrux.whosings.ui.login.LoginRepository
+import com.dariobrux.whosings.data.database.WhoSingsDAO
+import com.dariobrux.whosings.data.database.WhoSingsDatabase
+import com.dariobrux.whosings.data.repository.Repository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -60,7 +60,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideLoginRepository(dao: WhoSingsDAO) = LoginRepository(dao)
+    fun provideRepository(dao: WhoSingsDAO) = Repository(dao)
 
     @Singleton
     @Provides

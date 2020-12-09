@@ -1,4 +1,4 @@
-package com.dariobrux.whosings.data.local.model
+package com.dariobrux.whosings.data.database.model
 
 import androidx.annotation.NonNull
 import androidx.room.Entity
@@ -21,5 +21,8 @@ data class UserEntity(
     var name: String = "",
 
     @NonNull
-    var isLogged: Boolean = false
+    var isLogged: Boolean = false,
+
+    @NonNull
+    var score: Int = 0
 )

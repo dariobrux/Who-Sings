@@ -1,10 +1,10 @@
-package com.dariobrux.whosings.data.local
+package com.dariobrux.whosings.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.dariobrux.whosings.data.local.model.UserEntity
+import com.dariobrux.whosings.data.database.model.UserEntity
 
 /**
  *

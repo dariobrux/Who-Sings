@@ -1,10 +1,10 @@
-package com.dariobrux.whosings.data.local
+package com.dariobrux.whosings.data.database
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.dariobrux.whosings.data.local.model.UserEntity
+import com.dariobrux.whosings.data.database.model.UserEntity
 
 /**
  *
@@ -24,6 +24,13 @@ interface WhoSingsDAO {
      */
     @Query("Select * from user where isLogged = 1")
     fun getLoggedUser(): UserEntity
+
+    /**
+     * Get all the users.
+     * @return the list of [UserEntity] or null.
+     */
+    @Query("Select * from user")
+    fun getUsers(): List<UserEntity>?
 
     /**
      * Insert the user in the database.
