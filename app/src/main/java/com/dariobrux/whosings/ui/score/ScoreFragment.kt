@@ -14,6 +14,7 @@ import com.dariobrux.whosings.common.extension.toGone
 import com.dariobrux.whosings.common.extension.toScoreDataList
 import com.dariobrux.whosings.common.extension.toVisible
 import com.dariobrux.whosings.databinding.FragmentScoreBinding
+import com.dariobrux.whosings.ui.game.GameViewModel
 import com.dariobrux.whosings.ui.utils.ScoreItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -28,9 +29,15 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class ScoreFragment : Fragment() {
 
-    private val viewModel: ScoreViewModel by viewModels()
-
+    /**
+     * View binder. Destroy it in onDestroyView avoiding memory leaks.
+     */
     private var binding: FragmentScoreBinding? = null
+
+    /**
+     * The ViewModel that handles all this Fragment logic.
+     */
+    private val viewModel: ScoreViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentScoreBinding.inflate(inflater, container, false)

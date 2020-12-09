@@ -9,16 +9,21 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import com.dariobrux.whosings.R
 import com.dariobrux.whosings.common.Resource
+import com.dariobrux.whosings.common.extension.toGone
 import com.dariobrux.whosings.common.extension.toMainActivity
+import com.dariobrux.whosings.common.extension.toVisible
 import com.dariobrux.whosings.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.*
+import kotlin.system.measureTimeMillis
 
 /**
  *
  * Created by Dario Bruzzese on 7/12/2020.
  *
  * This Fragment shows the login screen.
+ * If a user is already stored in database with [com.dariobrux.whosings.data.database.model.UserEntity.isLogged] true,
+ * then goes directly into the [com.dariobrux.whosings.ui.game.GameFragment] screen.
  *
  */
 @AndroidEntryPoint
@@ -54,8 +59,27 @@ class LoginFragment : Fragment(), View.OnClickListener {
         }
 
         viewModel.getLoggedUser().observe(viewLifecycleOwner) {
-            if (it.status == Resource.Status.SUCCESS && it.data != null) {
-                //todo c è l utente e vado alla prossima schermata
+            when (it.status) {
+                Resource.Status.NONE -> {
+                    hideLoading()
+                }
+                Resource.Status.LOADING -> {
+                    showLoading()
+                }
+                Resource.Status.SUCCESS -> {
+                    if (it.data != null) {
+                        GlobalScope.launch(Dispatchers.Main) {
+                            delay(1000L)
+                            hideLoading()
+                            NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_loginFragment_to_gameFragment)
+                        }
+                    } else {
+                        hideLoading()
+                    }
+                }
+                Resource.Status.ERROR -> {
+                    hideLoading()
+                }
             }
         }
 
@@ -72,6 +96,22 @@ class LoginFragment : Fragment(), View.OnClickListener {
                 }
             }
         }
+    }
+
+    /**
+     * Display the loading views.
+     */
+    private fun showLoading() {
+        binding?.mask?.toVisible()
+        binding?.loading?.toVisible()
+    }
+
+    /**
+     * Hide the loading views.
+     */
+    private fun hideLoading() {
+        binding?.mask?.toGone()
+        binding?.loading?.toGone()
     }
 
     override fun onDestroyView() {

@@ -28,6 +28,7 @@ class Repository @Inject constructor(private val dao: WhoSingsDAO) {
     suspend fun getLoggedUser() = flow {
 
         var result = Resource<UserEntity>(Resource.Status.LOADING, null, null)
+        emit(result)
 
         kotlin.runCatching {
             dao.getLoggedUser()
