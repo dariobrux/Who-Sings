@@ -33,7 +33,7 @@ class GameRepository @Inject constructor(private val api: ApiHelper) {
         emit(result)
 
         kotlin.runCatching {
-            api.getChartArtists(page, 1, "en", Constants.API_KEY)
+            api.getChartTracks("top", page, 3, "en", 1, Constants.API_KEY)
         }.onFailure {
             Timber.d("An exception occurred: $it")
             result = Resource.error("An exception occurred")

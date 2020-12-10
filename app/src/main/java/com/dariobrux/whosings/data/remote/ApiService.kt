@@ -1,6 +1,5 @@
 package com.dariobrux.whosings.data.remote
 
-import com.dariobrux.whosings.data.remote.model.BodyData
 import com.dariobrux.whosings.data.remote.model.ObjectData
 import retrofit2.Response
 import retrofit2.http.GET
@@ -18,17 +17,21 @@ interface ApiService {
 
     /**
      * Get the [ObjectData] with the data to download.
-     * @param page the number of the current page to download
+     * @param chartName the name of the chart. For example "top"
+     * @param page the number of page.
      * @param size maximum number of pages to retrieve.
      * @param country the country language.
+     * @param hasLyrics flag if the track must contain lyrics. For example 1
      * @param apikey the apikey related to the application.
      * @return the [ObjectData] mapped into a response.
      */
-    @GET("chart.artists.get")
-    suspend fun getChartArtists(
+    @GET("chart.tracks.get")
+    suspend fun getChartTracks(
+        @Query("chart_name") chartName: String,
         @Query("page") page: Int,
-        @Query("size") size: Int,
+        @Query("page_size") size: Int,
         @Query("country") country: String,
+        @Query("f_has_lyrics") hasLyrics: Int,
         @Query("apikey") apikey: String
     ): Response<ObjectData>
 

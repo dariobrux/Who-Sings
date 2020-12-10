@@ -17,9 +17,9 @@ import com.dariobrux.whosings.data.remote.model.ObjectData
  * @return the new list of 3 [Artist] or an empty list.
  */
 fun ObjectData.toArtistList(): List<Artist> {
-    return this.message?.body?.artistList?.map {
+    return this.message?.body?.trackList?.map {
         Artist(
-            name = it.artist?.name ?: ""
+            name = it.track?.artistName ?: ""
         )
-    }?.take(3) ?: emptyList()
+    } ?: emptyList()
 }

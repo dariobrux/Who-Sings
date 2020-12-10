@@ -16,14 +16,16 @@ class ApiHelper @Inject constructor(private val service: ApiService) : ApiResult
 
     /**
      * Get the [ObjectData] with the data to download.
-     * @param page the number of the current page to download
+     * @param chartName the name of the chart. For example "top"
+     * @param page the number of page.
      * @param size maximum number of pages to retrieve.
      * @param country the country language.
+     * @param hasLyrics flag if the track must contain lyrics. For example 1
      * @param apikey the apikey related to the application.
      * @return the [ObjectData] mapped inside a response into a resource.
      */
-    suspend fun getChartArtists(page: Int, size: Int, country: String, apikey: String) = getResult {
-        service.getChartArtists(page, size, country, apikey)
+    suspend fun getChartTracks(chartName: String, page: Int, size: Int, country: String, hasLyrics: Int, apikey: String) = getResult {
+        service.getChartTracks(chartName, page, size, country, hasLyrics, apikey)
     }
 
 //    /**
