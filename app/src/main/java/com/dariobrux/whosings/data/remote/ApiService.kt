@@ -35,11 +35,15 @@ interface ApiService {
         @Query("apikey") apikey: String
     ): Response<ObjectData>
 
-//    /**
-//     * Get the [PokemonInfo] containing info of a single Pokemon.
-//     * @param url the url to call to get the info.
-//     * @return the [PokemonInfo] object mapped into an async response.
-//     */
-//    @GET
-//    suspend fun getPokemonInfo(@Url url: String): Response<PokemonInfo>
+    /**
+     * Get the snippet lyrics of a track.
+     * @param trackId the id of the track.
+     * @param apikey the apikey related to the application.
+     * @return the [ObjectData] mapped inside a response into a resource.
+     */
+    @GET("track.snippet.get")
+    suspend fun getSnippetLyrics(
+        @Query("track_id") trackId: Long,
+        @Query("apikey") apikey: String
+    ): Response<ObjectData>
 }

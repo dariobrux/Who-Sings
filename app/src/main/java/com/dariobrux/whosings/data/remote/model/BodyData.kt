@@ -13,6 +13,9 @@ data class BodyData(
     var artistList: List<ArtistPairData>?,
 
     @SerializedName("track_list")
-    var trackList: List<TrackPairData>?
+    var trackList: List<TrackPairData>?,
+
+    @SerializedName("snippet")
+    var snippet : SnippetData?
 
 )

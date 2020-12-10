@@ -9,5 +9,7 @@ package com.dariobrux.whosings.data.local.game
  */
 data class Artist(
 
-    var name: String = ""
+    var name: String = "",
+
+    var track: Track? = null
 )

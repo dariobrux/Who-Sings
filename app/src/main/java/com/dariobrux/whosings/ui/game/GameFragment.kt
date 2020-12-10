@@ -80,6 +80,10 @@ class GameFragment : Fragment(), GameAdapter.OnItemSelectedListener {
                 notifyDataSetChanged()
             }
         }
+
+        viewModel.snippetLyric.observe(viewLifecycleOwner) {
+            binding?.txtLyrics?.text = it
+        }
     }
 
     override fun onDestroyView() {

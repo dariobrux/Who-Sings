@@ -28,13 +28,14 @@ class ApiHelper @Inject constructor(private val service: ApiService) : ApiResult
         service.getChartTracks(chartName, page, size, country, hasLyrics, apikey)
     }
 
-//    /**
-//     * Get the [PokemonInfo] containing info of a single Pokemon.
-//     * @param url the url to call to get the info.
-//     * @return the [PokemonInfo] object mapped into an async response.
-//     */
-//    suspend fun getPokemonInfo(@Url url: String) = getResult {
-//        service.getPokemonInfo(url)
-//    }
+    /**
+     * Get the snippet lyrics of a track.
+     * @param trackId the id of the track.
+     * @param apikey the apikey related to the application.
+     * @return the [ObjectData] mapped inside a response into a resource.
+     */
+    suspend fun getSnippetLyrics(trackId: Long, apikey: String) = getResult {
+        service.getSnippetLyrics(trackId, apikey)
+    }
 
 }
