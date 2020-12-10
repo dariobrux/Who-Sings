@@ -9,5 +9,7 @@ package com.dariobrux.whosings.data.local.game
  */
 data class Snippet(
 
+    var trackId: Long = 0,
+
     var text: String = ""
 )

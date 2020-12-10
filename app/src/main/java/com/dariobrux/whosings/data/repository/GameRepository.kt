@@ -83,7 +83,7 @@ class GameRepository @Inject constructor(private val api: ApiHelper) {
             result = if (it.isSuccess()) {
                 Timber.d("Retrieved snippet lyrics: ${it.data}")
 
-                val snippet = it.data!!.toSnippetLyrics()
+                val snippet = it.data!!.toSnippetLyrics(trackId)
 
                 if (snippet.text.isEmpty()) {
                     Resource.error("An exception occurred while retrieving snippet lyrics")

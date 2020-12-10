@@ -12,4 +12,5 @@
     <string name="name">Name</string>
     <string name="score">Score</string>
     <string name="last_score_format">%s, your last score is %d!</string>
+    <string name="score_format">Score: %d</string>
 </resources>

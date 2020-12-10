@@ -61,6 +61,7 @@ class GameFragment : Fragment(), GameAdapter.OnItemSelectedListener {
 
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         binding?.apply {
             txtName.text = getString(R.string.last_score_format, user.name, user.score)
             recyclerChoice.let { recycler ->
@@ -70,19 +71,42 @@ class GameFragment : Fragment(), GameAdapter.OnItemSelectedListener {
             }
         }
 
-        viewModel.getChartArtists().observe(viewLifecycleOwner) {
-            if (it.status != Resource.Status.SUCCESS || it.data.isNullOrEmpty()) {
-                return@observe
-            }
-            adapter.apply {
-                items.clear()
-                items.addAll(it.data)
-                notifyDataSetChanged()
+        getChartArtists()
+
+        viewModel.snippetLyric.observe(viewLifecycleOwner) {
+            binding?.txtLyrics?.text = it?.text ?: ""
+        }
+
+        viewModel.matchCorrectness.observe(viewLifecycleOwner) { isCorrect ->
+            isCorrect ?: return@observe
+            if (isCorrect) {
+                viewModel.getChartArtists().removeObservers(viewLifecycleOwner)
+                getChartArtists()
+            } else {
+                // todo lose screen
             }
         }
 
-        viewModel.snippetLyric.observe(viewLifecycleOwner) {
-            binding?.txtLyrics?.text = it
+        viewModel.score.observe(viewLifecycleOwner) {
+            binding?.txtScore?.text = getString(R.string.score_format, it)
+        }
+    }
+
+    /**
+     * Observe the chart artists to populate the layout.
+     * When the call return a successful value, it displays the
+     * list of the artists inside the RecyclerView.
+     */
+    @ExperimentalCoroutinesApi
+    private fun getChartArtists() {
+        viewModel.getChartArtists().observe(viewLifecycleOwner) {
+            if (it.isSuccess()) {
+                adapter.apply {
+                    items.clear()
+                    items.addAll(it.data!!)
+                    notifyDataSetChanged()
+                }
+            }
         }
     }
 
@@ -92,7 +116,11 @@ class GameFragment : Fragment(), GameAdapter.OnItemSelectedListener {
         super.onDestroyView()
     }
 
+    /**
+     * Invoked when an artist has been selected.
+     * @param item the [Artist].
+     */
     override fun onArtistSelected(item: Artist) {
-        // TODO("Not yet implemented")
+        viewModel.selectArtist(item)
     }
 }

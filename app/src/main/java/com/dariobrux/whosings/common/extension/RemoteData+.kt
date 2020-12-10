@@ -42,11 +42,13 @@ fun TrackData?.toTrack(): Track? {
 
 /**
  * Convert a [BodyData] to a [Snippet].
+ * @param trackId the id of the track.
  * @return the new [Snippet].
  */
-fun ObjectData.toSnippetLyrics(): Snippet {
+fun ObjectData.toSnippetLyrics(trackId: Long): Snippet {
     return Snippet(
-        text = this.message?.body?.snippet?.text ?: ""
+        text = this.message?.body?.snippet?.text ?: "",
+        trackId = trackId
     )
 }
 

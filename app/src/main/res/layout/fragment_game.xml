@@ -30,7 +30,10 @@
         android:id="@+id/txtName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="@dimen/large_space"
+        android:layout_marginStart="@dimen/regular_space"
+        android:layout_marginTop="@dimen/regular_space"
+        android:layout_marginEnd="@dimen/regular_space"
+        android:gravity="end"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@color/white"
         android:textStyle="bold"
@@ -38,6 +41,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appBar"
         tools:text="Dario, your last score is 20!" />
+
+    <TextView
+        android:id="@+id/txtScore"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/regular_space"
+        android:layout_marginTop="@dimen/small_space"
+        android:layout_marginEnd="@dimen/regular_space"
+        android:gravity="end"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtName"
+        tools:text="Score: 2!" />
 
     <TextView
         android:id="@+id/txtLyrics"
@@ -51,7 +70,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtName"
+        app:layout_constraintTop_toBottomOf="@id/txtScore"
         tools:text="Snippet" />
 
     <androidx.recyclerview.widget.RecyclerView

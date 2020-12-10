@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="small_space">10dp</dimen>
     <dimen name="regular_space">20dp</dimen>
     <dimen name="large_space">40dp</dimen>
     <dimen name="regular_progress_height">100dp</dimen>
