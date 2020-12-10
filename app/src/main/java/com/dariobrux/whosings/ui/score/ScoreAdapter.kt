@@ -1,13 +1,12 @@
 package com.dariobrux.whosings.ui.score
 
-import android.R
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.dariobrux.whosings.data.local.score.HeaderData
-import com.dariobrux.whosings.data.local.score.ScoreData
-import com.dariobrux.whosings.data.local.score.ScoreInfoData
+import com.dariobrux.whosings.data.local.score.ScoreHeader
+import com.dariobrux.whosings.data.local.score.Score
+import com.dariobrux.whosings.data.local.score.ScoreInfo
 import com.dariobrux.whosings.databinding.ItemScoreDataBinding
 import com.dariobrux.whosings.databinding.ItemScoreHeaderBinding
 
@@ -19,12 +18,12 @@ import com.dariobrux.whosings.databinding.ItemScoreHeaderBinding
  * This adapter displays the scores.
  *
  */
-class ScoreAdapter(private val context: Context, private val items: List<ScoreData>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ScoreAdapter(private val context: Context, private val items: List<Score>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
-        if (items[position] is HeaderData) {
+        if (items[position] is ScoreHeader) {
             return HEADER
-        } else if (items[position] is ScoreInfoData) {
+        } else if (items[position] is ScoreInfo) {
             return SCORE
         }
         return -1
@@ -45,10 +44,10 @@ class ScoreAdapter(private val context: Context, private val items: List<ScoreDa
         val item = items[position]
         when (holder.itemViewType) {
             HEADER -> {
-                (holder as HeaderDataViewHolder).bind(item as HeaderData)
+                (holder as HeaderDataViewHolder).bind(item as ScoreHeader)
             }
             else -> {
-                (holder as ScoreDataViewHolder).bind(item as ScoreInfoData)
+                (holder as ScoreDataViewHolder).bind(item as ScoreInfo)
             }
         }
     }
@@ -58,7 +57,7 @@ class ScoreAdapter(private val context: Context, private val items: List<ScoreDa
     }
 
     inner class ScoreDataViewHolder(private val binding: ItemScoreDataBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ScoreInfoData) = with(binding) {
+        fun bind(item: ScoreInfo) = with(binding) {
             txtNumber.text = item.left
             txtName.text = item.center
             txtScore.text = item.right
@@ -66,7 +65,7 @@ class ScoreAdapter(private val context: Context, private val items: List<ScoreDa
     }
 
     inner class HeaderDataViewHolder(private val binding: ItemScoreHeaderBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: HeaderData) = with(binding) {
+        fun bind(item: ScoreHeader) = with(binding) {
             txtNumber.text = item.left
             txtName.text = item.center
             txtScore.text = item.right

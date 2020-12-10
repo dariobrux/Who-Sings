@@ -71,7 +71,12 @@ class LoginFragment : Fragment(), View.OnClickListener {
                         GlobalScope.launch(Dispatchers.Main) {
                             delay(1000L)
                             hideLoading()
-                            NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_loginFragment_to_gameFragment)
+                            NavHostFragment.findNavController(requireParentFragment()).navigate(
+                                R.id.action_loginFragment_to_gameFragment,
+                                Bundle().apply {
+                                    putSerializable("user", it.data)
+                                }
+                            )
                         }
                     } else {
                         hideLoading()

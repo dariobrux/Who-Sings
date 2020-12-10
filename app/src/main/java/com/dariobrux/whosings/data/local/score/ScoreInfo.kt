@@ -7,4 +7,4 @@ package com.dariobrux.whosings.data.local.score
  * This data class contains score info about the score screen.
  *
  */
-class ScoreInfoData(override var left: String, override var center: String, override var right: String) : ScoreData(left, center, right)
+class ScoreInfo(override var left: String, override var center: String, override var right: String) : Score(left, center, right)

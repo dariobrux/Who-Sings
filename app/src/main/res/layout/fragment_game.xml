@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:background="@color/red_400"
     tools:context=".ui.game.GameFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -24,5 +25,18 @@
             app:titleTextColor="@color/white" />
 
     </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/large_space"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appBar"
+        tools:text="Dario, your last score is 20!" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

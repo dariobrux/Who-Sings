@@ -3,9 +3,9 @@ package com.dariobrux.whosings.common.extension
 import android.content.Context
 import com.dariobrux.whosings.R
 import com.dariobrux.whosings.data.database.model.UserEntity
-import com.dariobrux.whosings.data.local.score.HeaderData
-import com.dariobrux.whosings.data.local.score.ScoreData
-import com.dariobrux.whosings.data.local.score.ScoreInfoData
+import com.dariobrux.whosings.data.local.score.ScoreHeader
+import com.dariobrux.whosings.data.local.score.Score
+import com.dariobrux.whosings.data.local.score.ScoreInfo
 import dagger.hilt.android.qualifiers.ApplicationContext
 
 /**
@@ -17,21 +17,21 @@ import dagger.hilt.android.qualifiers.ApplicationContext
  */
 
 /**
- * Convert a list of [UserEntity] to a list of [ScoreData] to display
- * the [HeaderData] and the [ScoreInfoData].
+ * Convert a list of [UserEntity] to a list of [Score] to display
+ * the [ScoreHeader] and the [ScoreInfo].
  * @param context the application context
  */
-fun List<UserEntity>.toScoreDataList(@ApplicationContext context: Context): List<ScoreData> {
-    val header = HeaderData(
+fun List<UserEntity>.toScoreDataList(@ApplicationContext context: Context): List<Score> {
+    val header = ScoreHeader(
         left = context.getString(R.string.pos),
         center = context.getString(R.string.name),
         right = context.getString(R.string.score)
     )
 
-    val result = mutableListOf<ScoreData>()
+    val result = mutableListOf<Score>()
 
     val scores = this.mapIndexed { index, userEntity ->
-        ScoreInfoData(
+        ScoreInfo(
             left = "${index + 1}",
             center = userEntity.name,
             right = userEntity.score.toString()

@@ -7,7 +7,7 @@ package com.dariobrux.whosings.data.local.score
  * This data class contains the header and the score info of the score screen.
  *
  */
-open class ScoreData(
+open class Score(
 
     open var left: String = "",
 

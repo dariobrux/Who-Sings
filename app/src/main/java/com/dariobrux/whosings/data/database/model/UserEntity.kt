@@ -3,6 +3,7 @@ package com.dariobrux.whosings.data.database.model
 import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 /**
  *
@@ -25,4 +26,5 @@ data class UserEntity(
 
     @NonNull
     var score: Int = 0
-)
+
+) : Serializable

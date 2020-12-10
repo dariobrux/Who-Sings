@@ -7,4 +7,4 @@ package com.dariobrux.whosings.data.local.score
  * This data class is the header of the score screen.
  *
  */
-class HeaderData(override var left: String, override var center: String, override var right: String) : ScoreData(left, center, right)
+class ScoreHeader(override var left: String, override var center: String, override var right: String) : Score(left, center, right)
