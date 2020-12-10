@@ -20,7 +20,7 @@
         android:id="@+id/loginFragment"
         android:name="com.dariobrux.whosings.ui.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_scoreFragment"
             app:destination="@id/scoreFragment" />
@@ -38,7 +38,7 @@
         android:id="@+id/gameFragment"
         android:name="com.dariobrux.whosings.ui.game.GameFragment"
         android:label="fragment_game"
-        tools:layout="@layout/fragment_game" >
+        tools:layout="@layout/fragment_game">
         <action
             android:id="@+id/action_gameFragment_to_scoreFragment"
             app:destination="@id/scoreFragment" />
