@@ -26,6 +26,50 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardRestart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/regular_space"
+        android:layout_marginTop="@dimen/regular_space"
+        app:cardBackgroundColor="@color/indigo_400"
+        app:cardCornerRadius="@dimen/regular_corner_radius"
+        app:cardElevation="@dimen/regular_elevation"
+        app:contentPadding="@dimen/regular_space"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appBar">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/restart"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/regular_space"
+        android:layout_marginTop="@dimen/regular_space"
+        app:cardBackgroundColor="@color/indigo_400"
+        app:cardCornerRadius="@dimen/regular_corner_radius"
+        app:cardElevation="@dimen/regular_elevation"
+        app:contentPadding="@dimen/regular_space"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appBar">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/logout"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+    </com.google.android.material.card.MaterialCardView>
+
     <TextView
         android:id="@+id/txtLose"
         android:layout_width="0dp"

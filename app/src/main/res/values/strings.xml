@@ -15,4 +15,6 @@
     <string name="score_format">Score: %d</string>
     <string name="lost_format">%s, you have lost!</string>
     <string name="record_format">Record: %d</string>
+    <string name="restart">Restart</string>
+    <string name="logout">Logout</string>
 </resources>
