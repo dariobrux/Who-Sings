@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dariobrux.whosings.R
@@ -48,6 +50,11 @@ class GameFragment : Fragment(), GameAdapter.OnItemSelectedListener {
      */
     private lateinit var adapter: GameAdapter
 
+    /**
+     * The current score during this game.
+     */
+    private var score = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         user = requireArguments().getSerializable("user") as UserEntity
@@ -63,13 +70,15 @@ class GameFragment : Fragment(), GameAdapter.OnItemSelectedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         binding?.apply {
-            txtName.text = getString(R.string.last_score_format, user.name, user.score)
+            txtName.text = getString(R.string.last_score_format, user.name, user.scoreRecord)
             recyclerChoice.let { recycler ->
                 recycler.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
                 recycler.adapter = adapter
                 recycler.addItemDecoration(ScoreItemDecoration(requireContext().getDimen(R.dimen.regular_space)))
             }
         }
+
+        viewModel.user = user
 
         getChartArtists()
 
@@ -83,11 +92,19 @@ class GameFragment : Fragment(), GameAdapter.OnItemSelectedListener {
                 viewModel.getChartArtists().removeObservers(viewLifecycleOwner)
                 getChartArtists()
             } else {
-                // todo lose screen
+                NavHostFragment.findNavController(requireParentFragment()).navigate(
+                    R.id.action_gameFragment_to_resultFragment,
+                    Bundle().apply {
+                        putSerializable("user", user)
+                        putInt("score", score)
+                    },
+                    NavOptions.Builder().setPopUpTo(R.id.gameFragment, true).build()
+                )
             }
         }
 
         viewModel.score.observe(viewLifecycleOwner) {
+            score = it
             binding?.txtScore?.text = getString(R.string.score_format, it)
         }
     }
@@ -120,6 +137,7 @@ class GameFragment : Fragment(), GameAdapter.OnItemSelectedListener {
      * Invoked when an artist has been selected.
      * @param item the [Artist].
      */
+    @ExperimentalCoroutinesApi
     override fun onArtistSelected(item: Artist) {
         viewModel.selectArtist(item)
     }

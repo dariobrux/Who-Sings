@@ -1,9 +1,6 @@
 package com.dariobrux.whosings.data.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.dariobrux.whosings.data.database.model.UserEntity
 
 /**
@@ -39,6 +36,13 @@ interface WhoSingsDAO {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertUser(user: UserEntity)
+
+    /**
+     * Update the user.
+     * @param user the [UserEntity] to update.
+     */
+    @Update
+    suspend fun updateUser(user: UserEntity)
 //
 //    /**
 //     * Delete all from the database.

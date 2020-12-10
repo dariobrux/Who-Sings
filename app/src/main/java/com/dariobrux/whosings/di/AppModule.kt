@@ -73,7 +73,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideGameRepository(api: ApiHelper) = GameRepository(api)
+    fun provideGameRepository(api: ApiHelper, dao: WhoSingsDAO) = GameRepository(api, dao)
 
     @Singleton
     @Provides

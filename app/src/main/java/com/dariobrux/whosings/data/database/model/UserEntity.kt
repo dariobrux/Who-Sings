@@ -25,6 +25,6 @@ data class UserEntity(
     var isLogged: Boolean = false,
 
     @NonNull
-    var score: Int = 0
+    var scoreRecord: Int = 0
 
 ) : Serializable

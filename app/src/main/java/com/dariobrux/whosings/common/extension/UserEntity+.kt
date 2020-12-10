@@ -34,7 +34,7 @@ fun List<UserEntity>.toScoreDataList(@ApplicationContext context: Context): List
         ScoreInfo(
             left = "${index + 1}",
             center = userEntity.name,
-            right = userEntity.score.toString()
+            right = userEntity.scoreRecord.toString()
         )
     }
 

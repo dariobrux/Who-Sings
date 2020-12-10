@@ -6,11 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.liveData
 import com.dariobrux.whosings.common.extension.toRandomTrack
+import com.dariobrux.whosings.data.database.model.UserEntity
 import com.dariobrux.whosings.data.local.game.Artist
 import com.dariobrux.whosings.data.local.game.Snippet
 import com.dariobrux.whosings.data.repository.GameRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
+import kotlin.math.max
 
 class GameViewModel @ViewModelInject constructor(private val repository: GameRepository) : ViewModel() {
 
@@ -20,6 +22,11 @@ class GameViewModel @ViewModelInject constructor(private val repository: GameRep
     val snippetLyric: MutableLiveData<Snippet?> = MutableLiveData(null)
 
     val matchCorrectness: MutableLiveData<Boolean> = MutableLiveData(null)
+
+    /**
+     * The current user that's playing.
+     */
+    lateinit var user: UserEntity
 
     /**
      * Observable that emit the score.
@@ -68,6 +75,8 @@ class GameViewModel @ViewModelInject constructor(private val repository: GameRep
             score.value = score.value!! + 1
             true
         } else {
+            user.scoreRecord = max(score.value!!, user.scoreRecord)
+            repository.updateUser(user)
             false
         }
     }

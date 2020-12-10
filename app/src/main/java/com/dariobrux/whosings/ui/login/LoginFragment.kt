@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import com.dariobrux.whosings.R
 import com.dariobrux.whosings.common.Resource
@@ -58,6 +59,28 @@ class LoginFragment : Fragment(), View.OnClickListener {
             it.txtScores.setOnClickListener(this)
         }
 
+        getLoggedUser()
+
+        viewModel.filledUser.observe(viewLifecycleOwner) {
+            if (it.name.isNotEmpty()) {
+                binding?.txtPlay?.run {
+                    isClickable = true
+                    alpha = 1f
+                }
+            } else {
+                binding?.txtPlay?.run {
+                    isClickable = false
+                    alpha = 0.5f
+                }
+            }
+        }
+    }
+
+    /**
+     * Observe if there is already a logged user.
+     */
+    @ExperimentalCoroutinesApi
+    private fun getLoggedUser() {
         viewModel.getLoggedUser().observe(viewLifecycleOwner) {
             when (it.status) {
                 Resource.Status.NONE -> {
@@ -75,7 +98,8 @@ class LoginFragment : Fragment(), View.OnClickListener {
                                 R.id.action_loginFragment_to_gameFragment,
                                 Bundle().apply {
                                     putSerializable("user", it.data)
-                                }
+                                },
+                                NavOptions.Builder().setPopUpTo(R.id.loginFragment, true).build()
                             )
                         }
                     } else {
@@ -84,20 +108,6 @@ class LoginFragment : Fragment(), View.OnClickListener {
                 }
                 Resource.Status.ERROR -> {
                     hideLoading()
-                }
-            }
-        }
-
-        viewModel.filledUser.observe(viewLifecycleOwner) {
-            if (it.name.isNotEmpty()) {
-                binding?.txtPlay?.run {
-                    isClickable = true
-                    alpha = 1f
-                }
-            } else {
-                binding?.txtPlay?.run {
-                    isClickable = false
-                    alpha = 0.5f
                 }
             }
         }
@@ -134,6 +144,8 @@ class LoginFragment : Fragment(), View.OnClickListener {
         when (v) {
             binding?.txtPlay -> {
                 viewModel.insertUser()
+                viewModel.getLoggedUser().removeObservers(viewLifecycleOwner)
+                getLoggedUser()
             }
             binding?.txtScores -> {
                 NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_loginFragment_to_scoreFragment)

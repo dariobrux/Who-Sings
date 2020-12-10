@@ -5,6 +5,8 @@ import com.dariobrux.whosings.common.Resource
 import com.dariobrux.whosings.common.extension.toArtistList
 import com.dariobrux.whosings.common.extension.toRandomTrack
 import com.dariobrux.whosings.common.extension.toSnippetLyrics
+import com.dariobrux.whosings.data.database.WhoSingsDAO
+import com.dariobrux.whosings.data.database.model.UserEntity
 import com.dariobrux.whosings.data.local.game.Artist
 import com.dariobrux.whosings.data.local.game.Snippet
 import com.dariobrux.whosings.data.local.game.Track
@@ -13,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -24,7 +27,7 @@ import javax.inject.Inject
  * between the ViewModel and the Database.
  *
  */
-class GameRepository @Inject constructor(private val api: ApiHelper) {
+class GameRepository @Inject constructor(private val api: ApiHelper, private val dao: WhoSingsDAO) {
 
     /**
      * Get the chart artists.
@@ -100,4 +103,19 @@ class GameRepository @Inject constructor(private val api: ApiHelper) {
         emit(result)
 
     }.flowOn(Dispatchers.IO)
+
+    /**
+     * Update the [UserEntity] in database.
+     * @param userEntity the [UserEntity] to update.
+     */
+    fun updateUser(userEntity: UserEntity) = runBlocking {
+        kotlin.runCatching {
+            dao.updateUser(userEntity)
+        }.onFailure {
+            Timber.d("An exception occurred while updating user: $it")
+        }.onSuccess {
+            Timber.d("User successful updated")
+        }
+        return@runBlocking
+    }
 }
