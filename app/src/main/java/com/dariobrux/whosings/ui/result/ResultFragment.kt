@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.NavHostFragment
 import com.dariobrux.whosings.R
 import com.dariobrux.whosings.data.database.model.UserEntity
 import com.dariobrux.whosings.databinding.FragmentResultBinding
@@ -18,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
  *
  */
 @AndroidEntryPoint
-class ResultFragment : Fragment() {
+class ResultFragment : Fragment(), View.OnClickListener {
 
     /**
      * View binder. Destroy it in onDestroyView avoiding memory leaks.
@@ -51,12 +53,31 @@ class ResultFragment : Fragment() {
             txtLose.text = getString(R.string.lost_format, user.name)
             txtScore.text = getString(R.string.score_format, score)
             txtRecord.text = getString(R.string.record_format, user.scoreRecord)
+            cardLogout.setOnClickListener(this@ResultFragment)
+            cardRestart.setOnClickListener(this@ResultFragment)
         }
     }
 
     override fun onDestroyView() {
         binding = null
         super.onDestroyView()
+    }
+
+    override fun onClick(v: View) {
+        when (v) {
+            binding?.cardRestart -> {
+                NavHostFragment.findNavController(requireParentFragment()).navigate(
+                    R.id.action_resultFragment_to_gameFragment,
+                    Bundle().apply {
+                        putSerializable("user", user)
+                    },
+                    NavOptions.Builder().setPopUpTo(R.id.resultFragment, true).build()
+                )
+            }
+            binding?.cardLogout -> {
+                // logout user and go to login fragment
+            }
+        }
     }
 
 }
