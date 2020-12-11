@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import com.dariobrux.whosings.R
 import com.dariobrux.whosings.data.database.model.UserEntity
 import com.dariobrux.whosings.databinding.FragmentResultBinding
+import com.dariobrux.whosings.ui.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -21,6 +23,11 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 @AndroidEntryPoint
 class ResultFragment : Fragment(), View.OnClickListener {
+
+    /**
+     * The ViewModel that handles all this Fragment logic.
+     */
+    private val viewModel: ResultViewModel by viewModels()
 
     /**
      * View binder. Destroy it in onDestroyView avoiding memory leaks.
@@ -75,7 +82,12 @@ class ResultFragment : Fragment(), View.OnClickListener {
                 )
             }
             binding?.cardLogout -> {
-                // logout user and go to login fragment
+                viewModel.logout(user)
+                NavHostFragment.findNavController(requireParentFragment()).navigate(
+                    R.id.action_resultFragment_to_loginFragment,
+                    null,
+                    NavOptions.Builder().setPopUpTo(R.id.resultFragment, true).build()
+                )
             }
         }
     }

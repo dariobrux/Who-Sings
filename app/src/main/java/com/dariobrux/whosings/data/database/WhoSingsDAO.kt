@@ -23,6 +23,13 @@ interface WhoSingsDAO {
     fun getLoggedUser(): UserEntity
 
     /**
+     * Get a user from its name.
+     * @return the [UserEntity] or null.
+     */
+    @Query("Select * from user where name = :name")
+    fun getUser(name: String): UserEntity?
+
+    /**
      * Get all the users.
      * @return the list of [UserEntity] or null.
      */

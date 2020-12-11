@@ -50,7 +50,10 @@ class Repository @Inject constructor(private val dao: WhoSingsDAO) {
     suspend fun insertUser(user: UserEntity) = flow {
 
         kotlin.runCatching {
-            dao.insertUser(user)
+            val dbUser = dao.getUser(user.name)?.apply {
+                isLogged = true
+            } ?: user
+            dao.insertUser(dbUser)
         }.onSuccess {
             emit(true)
         }.onFailure {
