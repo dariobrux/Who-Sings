@@ -17,4 +17,5 @@
     <string name="record_format">Record: %d</string>
     <string name="restart">Restart</string>
     <string name="logout">Logout</string>
+    <string name="logging_as_format">Logging as\n%s</string>
 </resources>

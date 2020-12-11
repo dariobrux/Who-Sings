@@ -117,16 +117,20 @@ class LoginFragment : Fragment(), View.OnClickListener {
      * Display the loading views.
      */
     private fun showLoading() {
-        binding?.mask?.toVisible()
-        binding?.loading?.toVisible()
+        binding?.apply {
+            mask.toVisible()
+            loading.toVisible()
+        }
     }
 
     /**
      * Hide the loading views.
      */
     private fun hideLoading() {
-        binding?.mask?.toGone()
-        binding?.loading?.toGone()
+        binding?.apply {
+            mask.toGone()
+            loading.toGone()
+        }
     }
 
     override fun onDestroyView() {

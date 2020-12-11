@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:background="@color/red_400"
     tools:context=".ui.login.LoginFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -129,7 +130,8 @@
         android:focusable="true"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appBar" />
+        app:layout_constraintTop_toBottomOf="@id/appBar"
+        tools:visibility="visible" />
 
     <ProgressBar
         android:id="@+id/loading"
@@ -137,11 +139,12 @@
         android:layout_height="@dimen/regular_progress_height"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:indeterminateTint="@color/red_400"
+        android:indeterminateTint="@color/indigo_400"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
