@@ -33,7 +33,7 @@ interface WhoSingsDAO {
      * Get all the users.
      * @return the list of [UserEntity] or null.
      */
-    @Query("Select * from user")
+    @Query("Select * from user order by scoreRecord desc, name asc")
     fun getUsers(): List<UserEntity>?
 
     /**
