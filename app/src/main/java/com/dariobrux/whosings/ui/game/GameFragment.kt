@@ -29,7 +29,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  *
  */
 @AndroidEntryPoint
-class GameFragment : Fragment(), GameAdapter.OnItemSelectedListener {
+class GameFragment : Fragment(), GameAdapter.OnItemSelectedListener, View.OnClickListener {
 
     /**
      * View binder. Destroy it in onDestroyView avoiding memory leaks.
@@ -77,6 +77,7 @@ class GameFragment : Fragment(), GameAdapter.OnItemSelectedListener {
                 recycler.adapter = adapter
                 recycler.addItemDecoration(ScoreItemDecoration(requireContext().getDimen(R.dimen.regular_space)))
             }
+            cardLogout.setOnClickListener(this@GameFragment)
         }
 
         viewModel.user = user
@@ -141,5 +142,18 @@ class GameFragment : Fragment(), GameAdapter.OnItemSelectedListener {
     @ExperimentalCoroutinesApi
     override fun onArtistSelected(item: Artist) {
         viewModel.selectArtist(item)
+    }
+
+    override fun onClick(v: View) {
+        when (v) {
+            binding?.cardLogout -> {
+                viewModel.logout(user)
+                NavHostFragment.findNavController(requireParentFragment()).navigate(
+                    R.id.action_gameFragment_to_loginFragment,
+                    null,
+                    NavOptions.Builder().setPopUpTo(R.id.gameFragment, true).build()
+                )
+            }
+        }
     }
 }

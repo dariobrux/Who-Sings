@@ -80,4 +80,12 @@ class GameViewModel @ViewModelInject constructor(private val repository: GameRep
             false
         }
     }
+    /**
+     * Logout the user.
+     * @param user the [UserEntity] to logout.
+     */
+    fun logout(user: UserEntity) {
+        user.isLogged = false
+        repository.updateUser(user)
+    }
 }
