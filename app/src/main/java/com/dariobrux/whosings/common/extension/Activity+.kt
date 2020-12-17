@@ -26,9 +26,5 @@ fun Activity.toMainActivity(): MainActivity? {
  */
 fun Activity.hideKeyboard() {
     val imm: InputMethodManager = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-    var view: View? = this.currentFocus
-    if (view == null) {
-        view = View(this)
-    }
-    imm.hideSoftInputFromWindow(view.windowToken, 0)
+    imm.hideSoftInputFromWindow(this.currentFocus?.windowToken, 0)
 }
