@@ -1,5 +1,6 @@
 package com.dariobrux.whosings.ui.game
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,15 +12,21 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dariobrux.whosings.R
+import com.dariobrux.whosings.common.Constants
 import com.dariobrux.whosings.common.Resource
 import com.dariobrux.whosings.common.extension.getDimen
 import com.dariobrux.whosings.common.extension.getMaxScore
+import com.dariobrux.whosings.common.manager.ITimerManagerListener
+import com.dariobrux.whosings.common.manager.TimerManager
 import com.dariobrux.whosings.data.database.model.UserEntity
 import com.dariobrux.whosings.data.local.game.Artist
 import com.dariobrux.whosings.databinding.FragmentGameBinding
 import com.dariobrux.whosings.ui.utils.ScoreItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import timber.log.Timber
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  *
@@ -29,7 +36,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  *
  */
 @AndroidEntryPoint
-class GameFragment : Fragment(), GameAdapter.OnItemSelectedListener, View.OnClickListener {
+class GameFragment : Fragment(), GameAdapter.OnItemSelectedListener, View.OnClickListener, ITimerManagerListener {
 
     /**
      * View binder. Destroy it in onDestroyView avoiding memory leaks.
@@ -56,6 +63,17 @@ class GameFragment : Fragment(), GameAdapter.OnItemSelectedListener, View.OnClic
      */
     private var score = 0
 
+    /**
+     * This is the countdown timer below the choices.
+     */
+    @Inject
+    lateinit var timer: TimerManager
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        timer.init(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         user = requireArguments().getSerializable("user") as UserEntity
@@ -78,6 +96,7 @@ class GameFragment : Fragment(), GameAdapter.OnItemSelectedListener, View.OnClic
                 recycler.addItemDecoration(ScoreItemDecoration(requireContext().getDimen(R.dimen.regular_space)))
             }
             cardLogout.setOnClickListener(this@GameFragment)
+            progressTimer.max = Constants.TIMER_GAME.toInt()
         }
 
         viewModel.user = user
@@ -90,24 +109,34 @@ class GameFragment : Fragment(), GameAdapter.OnItemSelectedListener, View.OnClic
 
         viewModel.matchCorrectness.observe(viewLifecycleOwner) { isCorrect ->
             isCorrect ?: return@observe
-            if (isCorrect) {
-                viewModel.getChartArtists().removeObservers(viewLifecycleOwner)
-                getChartArtists()
-            } else {
-                NavHostFragment.findNavController(requireParentFragment()).navigate(
-                    R.id.action_gameFragment_to_resultFragment,
-                    Bundle().apply {
-                        putSerializable("user", user)
-                        putInt("score", score)
-                    },
-                    NavOptions.Builder().setPopUpTo(R.id.gameFragment, true).build()
-                )
-            }
+            matchCorrectness(isCorrect)
         }
 
         viewModel.score.observe(viewLifecycleOwner) {
             score = it
             binding?.txtScore?.text = getString(R.string.score_format, it)
+        }
+    }
+
+    /**
+     * Show the next question if is correct.
+     * Go to the result screen if isn't correct.
+     * @param isCorrect true if is correct, false if isn't correct.
+     */
+    @ExperimentalCoroutinesApi
+    private fun matchCorrectness(isCorrect: Boolean) {
+        if (isCorrect) {
+            viewModel.getChartArtists().removeObservers(viewLifecycleOwner)
+            getChartArtists()
+        } else {
+            NavHostFragment.findNavController(requireParentFragment()).navigate(
+                R.id.action_gameFragment_to_resultFragment,
+                Bundle().apply {
+                    putSerializable("user", user)
+                    putInt("score", score)
+                },
+                NavOptions.Builder().setPopUpTo(R.id.gameFragment, true).build()
+            )
         }
     }
 
@@ -120,6 +149,9 @@ class GameFragment : Fragment(), GameAdapter.OnItemSelectedListener, View.OnClic
     private fun getChartArtists() {
         viewModel.getChartArtists().observe(viewLifecycleOwner) {
             if (it.isSuccess()) {
+
+                timer.start()
+
                 adapter.apply {
                     items.clear()
                     items.addAll(it.data!!)
@@ -141,6 +173,7 @@ class GameFragment : Fragment(), GameAdapter.OnItemSelectedListener, View.OnClic
      */
     @ExperimentalCoroutinesApi
     override fun onArtistSelected(item: Artist) {
+        timer.cancel()
         viewModel.selectArtist(item)
     }
 
@@ -155,5 +188,28 @@ class GameFragment : Fragment(), GameAdapter.OnItemSelectedListener, View.OnClic
                 )
             }
         }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        timer.cancel()
+    }
+
+    /**
+     * Callback fired on regular interval.
+     * @param millis The amount of time until finished.
+     */
+    override fun onTimerRun(millis: Long) {
+        Timber.d("Timer: $millis")
+        binding?.progressTimer?.progress = Constants.TIMER_GAME.toInt() - millis.toInt()
+    }
+
+    /**
+     * Callback fired when the time is up.
+     */
+    @ExperimentalCoroutinesApi
+    override fun onTimerFinish() {
+        binding?.progressTimer?.progress = Constants.TIMER_GAME.toInt()
+        matchCorrectness(false)
     }
 }

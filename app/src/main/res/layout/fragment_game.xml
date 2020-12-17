@@ -104,7 +104,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtLyrics">
 
-
     </androidx.recyclerview.widget.RecyclerView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/regular_space"
+        app:cardCornerRadius="@dimen/regular_corner_radius"
+        app:cardElevation="@dimen/regular_elevation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerChoice"
+        app:layout_constraintVertical_bias="1">
+
+        <ProgressBar
+            android:id="@+id/progressTimer"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/regular_progress_bar_height"
+            android:background="@color/white"
+            android:progressBackgroundTint="@color/white"
+            android:progressTint="@color/indigo_400" />
+
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

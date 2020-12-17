@@ -9,6 +9,7 @@ buildscript {
         materialTextField_version = "1.0.7"
         navigation_version = "2.3.2"
         okhttp_version = "4.9.0"
+        progress_version = "2.1.1"
         retrofitCoroutines_version = "0.9.2"
         retrofit_version = "2.9.0"
         room_version = "2.2.5"

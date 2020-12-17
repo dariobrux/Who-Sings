@@ -7,4 +7,5 @@
     <dimen name="regular_elevation">8dp</dimen>
     <dimen name="regular_corner_radius">8dp</dimen>
     <dimen name="regular_choice_height">100dp</dimen>
+    <dimen name="regular_progress_bar_height">20dp</dimen>
 </resources>
