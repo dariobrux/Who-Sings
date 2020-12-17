@@ -3,6 +3,7 @@ package com.dariobrux.whosings.di
 import android.content.Context
 import com.dariobrux.whosings.BuildConfig
 import com.dariobrux.whosings.common.Constants
+import com.dariobrux.whosings.common.manager.TimerManager
 import com.dariobrux.whosings.data.database.WhoSingsDAO
 import com.dariobrux.whosings.data.database.WhoSingsDatabase
 import com.dariobrux.whosings.data.remote.ApiHelper
@@ -18,6 +19,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 /**
@@ -30,6 +32,9 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @Provides
+    fun provideTimerGame() = TimerManager(Constants.TIMER_GAME)
 
     @Provides
     fun provideBaseUrl() = Constants.BASE_URL

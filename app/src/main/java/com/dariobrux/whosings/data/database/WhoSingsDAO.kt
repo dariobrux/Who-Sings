@@ -33,7 +33,7 @@ interface WhoSingsDAO {
      * Get all the users.
      * @return the list of [UserEntity] or null.
      */
-    @Query("Select * from user order by scoreRecord desc, name asc")
+    @Query("Select * from user order by name asc")
     fun getUsers(): List<UserEntity>?
 
     /**
@@ -50,10 +50,4 @@ interface WhoSingsDAO {
      */
     @Update
     suspend fun updateUser(user: UserEntity)
-//
-//    /**
-//     * Delete all from the database.
-//     */
-//    @Query("DELETE FROM weather")
-//    fun deleteAll()
 }

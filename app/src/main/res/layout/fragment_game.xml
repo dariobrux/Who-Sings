@@ -26,6 +26,28 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/regular_space"
+        android:layout_marginEnd="@dimen/regular_space"
+        app:cardBackgroundColor="@color/indigo_400"
+        app:cardCornerRadius="@dimen/regular_corner_radius"
+        app:cardElevation="@dimen/regular_elevation"
+        app:contentPadding="@dimen/regular_space"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appBar">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/logout"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+    </com.google.android.material.card.MaterialCardView>
+
     <TextView
         android:id="@+id/txtName"
         android:layout_width="0dp"
@@ -33,11 +55,11 @@
         android:layout_marginStart="@dimen/regular_space"
         android:layout_marginTop="@dimen/regular_space"
         android:layout_marginEnd="@dimen/regular_space"
-        android:gravity="end"
+        android:gravity="start"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/cardLogout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appBar"
         tools:text="Dario, your last score is 20!" />
@@ -49,11 +71,11 @@
         android:layout_marginStart="@dimen/regular_space"
         android:layout_marginTop="@dimen/small_space"
         android:layout_marginEnd="@dimen/regular_space"
-        android:gravity="end"
+        android:gravity="start"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/cardLogout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtName"
         tools:text="Score: 2!" />
@@ -82,7 +104,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtLyrics">
 
-
     </androidx.recyclerview.widget.RecyclerView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/regular_space"
+        app:cardCornerRadius="@dimen/regular_corner_radius"
+        app:cardElevation="@dimen/regular_elevation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerChoice"
+        app:layout_constraintVertical_bias="1">
+
+        <ProgressBar
+            android:id="@+id/progressTimer"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/regular_progress_bar_height"
+            android:background="@color/white"
+            android:progressBackgroundTint="@color/white"
+            android:progressTint="@color/indigo_400" />
+
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
