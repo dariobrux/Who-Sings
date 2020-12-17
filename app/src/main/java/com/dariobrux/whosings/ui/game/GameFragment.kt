@@ -195,6 +195,14 @@ class GameFragment : Fragment(), GameAdapter.OnItemSelectedListener, View.OnClic
         timer.cancel()
     }
 
+    @ExperimentalCoroutinesApi
+    override fun onResume() {
+        super.onResume()
+        if (timer.isFinished()){
+            matchCorrectness(false)
+        }
+    }
+
     /**
      * Callback fired on regular interval.
      * @param millis The amount of time until finished.
