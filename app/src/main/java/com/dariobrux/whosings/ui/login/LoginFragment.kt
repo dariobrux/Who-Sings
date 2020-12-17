@@ -10,6 +10,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import com.dariobrux.whosings.R
 import com.dariobrux.whosings.common.Resource
+import com.dariobrux.whosings.common.extension.hideKeyboard
 import com.dariobrux.whosings.common.extension.toGone
 import com.dariobrux.whosings.common.extension.toMainActivity
 import com.dariobrux.whosings.common.extension.toVisible
@@ -55,20 +56,20 @@ class LoginFragment : Fragment(), View.OnClickListener {
 
         binding?.let {
             viewModel.bind(it.editName)
-            it.txtPlay.setOnClickListener(this)
-            it.txtScores.setOnClickListener(this)
+            it.cardPlay.setOnClickListener(this)
+            it.cardScore.setOnClickListener(this)
         }
 
         getLoggedUser()
 
         viewModel.filledUser.observe(viewLifecycleOwner) {
             if (it.name.isNotEmpty()) {
-                binding?.txtPlay?.run {
+                binding?.cardPlay?.run {
                     isClickable = true
                     alpha = 1f
                 }
             } else {
-                binding?.txtPlay?.run {
+                binding?.cardPlay?.run {
                     isClickable = false
                     alpha = 0.5f
                 }
@@ -146,12 +147,13 @@ class LoginFragment : Fragment(), View.OnClickListener {
     @ExperimentalCoroutinesApi
     override fun onClick(v: View) {
         when (v) {
-            binding?.txtPlay -> {
+            binding?.cardPlay -> {
+                requireActivity().hideKeyboard()
                 viewModel.insertUser()
                 viewModel.getLoggedUser().removeObservers(viewLifecycleOwner)
                 getLoggedUser()
             }
-            binding?.txtScores -> {
+            binding?.cardScore -> {
                 NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.action_loginFragment_to_scoreFragment)
             }
         }

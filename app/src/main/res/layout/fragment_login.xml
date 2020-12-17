@@ -92,30 +92,53 @@
 
             </com.github.florent37.materialtextfield.MaterialTextField>
 
-            <TextView
-                android:id="@+id/txtPlay"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardPlay"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/regular_space"
                 android:layout_marginTop="@dimen/large_space"
-                android:gravity="center"
-                android:padding="@dimen/regular_space"
-                android:text="@string/play_game"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/materialTextField" />
+                android:layout_marginEnd="@dimen/regular_space"
+                app:cardBackgroundColor="@color/indigo_400"
+                app:cardCornerRadius="@dimen/regular_corner_radius"
+                app:cardElevation="@dimen/regular_elevation"
+                app:contentPadding="@dimen/regular_space"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/materialTextField">
 
-            <TextView
-                android:id="@+id/txtScores"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/play_game"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardScore"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:gravity="center"
-                android:padding="@dimen/regular_space"
-                android:text="@string/scores"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/txtPlay" />
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/regular_space"
+                android:layout_marginTop="@dimen/large_space"
+                android:layout_marginEnd="@dimen/regular_space"
+                app:cardBackgroundColor="@color/indigo_400"
+                app:cardCornerRadius="@dimen/regular_corner_radius"
+                app:cardElevation="@dimen/regular_elevation"
+                app:contentPadding="@dimen/regular_space"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardPlay">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/scores"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
