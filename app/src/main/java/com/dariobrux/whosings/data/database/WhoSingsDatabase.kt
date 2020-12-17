@@ -4,6 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.dariobrux.whosings.data.database.converter.DateConverter
+import com.dariobrux.whosings.data.database.converter.ScoreConverter
+import com.dariobrux.whosings.data.database.model.ScoreEntity
 import com.dariobrux.whosings.data.database.model.UserEntity
 
 /**
@@ -17,12 +21,13 @@ import com.dariobrux.whosings.data.database.model.UserEntity
 @Database(
     exportSchema = false, version = 1, entities = [
         UserEntity::class,
+        ScoreEntity::class
     ]
 )
-//@TypeConverters(
-//    WeatherInfoConverter::class,
-//    CityConverter::class
-//)
+@TypeConverters(
+    ScoreConverter::class,
+    DateConverter::class
+)
 abstract class WhoSingsDatabase : RoomDatabase() {
 
     companion object {

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dariobrux.whosings.R
 import com.dariobrux.whosings.common.Resource
 import com.dariobrux.whosings.common.extension.getDimen
+import com.dariobrux.whosings.common.extension.getMaxScore
 import com.dariobrux.whosings.data.database.model.UserEntity
 import com.dariobrux.whosings.data.local.game.Artist
 import com.dariobrux.whosings.databinding.FragmentGameBinding
@@ -70,7 +71,7 @@ class GameFragment : Fragment(), GameAdapter.OnItemSelectedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         binding?.apply {
-            txtName.text = getString(R.string.last_score_format, user.name, user.scoreRecord)
+            txtName.text = getString(R.string.last_score_format, user.name, user.scores.getMaxScore())
             recyclerChoice.let { recycler ->
                 recycler.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
                 recycler.adapter = adapter

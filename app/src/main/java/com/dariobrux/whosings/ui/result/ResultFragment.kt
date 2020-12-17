@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import com.dariobrux.whosings.R
+import com.dariobrux.whosings.common.extension.getMaxScore
 import com.dariobrux.whosings.data.database.model.UserEntity
 import com.dariobrux.whosings.databinding.FragmentResultBinding
 import com.dariobrux.whosings.ui.login.LoginViewModel
@@ -59,7 +60,7 @@ class ResultFragment : Fragment(), View.OnClickListener {
         binding?.apply {
             txtLose.text = getString(R.string.lost_format, user.name)
             txtScore.text = getString(R.string.score_format, score)
-            txtRecord.text = getString(R.string.record_format, user.scoreRecord)
+            txtRecord.text = getString(R.string.record_format, user.scores.getMaxScore())
             cardLogout.setOnClickListener(this@ResultFragment)
             cardRestart.setOnClickListener(this@ResultFragment)
         }

@@ -3,9 +3,9 @@ package com.dariobrux.whosings.ui.game
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asFlow
 import androidx.lifecycle.liveData
 import com.dariobrux.whosings.common.extension.toRandomTrack
+import com.dariobrux.whosings.data.database.model.ScoreEntity
 import com.dariobrux.whosings.data.database.model.UserEntity
 import com.dariobrux.whosings.data.local.game.Artist
 import com.dariobrux.whosings.data.local.game.Snippet
@@ -75,7 +75,7 @@ class GameViewModel @ViewModelInject constructor(private val repository: GameRep
             score.value = score.value!! + 1
             true
         } else {
-            user.scoreRecord = max(score.value!!, user.scoreRecord)
+            user.scores.add(ScoreEntity(score = score.value!!))
             repository.updateUser(user)
             false
         }

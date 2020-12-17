@@ -25,6 +25,6 @@ data class UserEntity(
     var isLogged: Boolean = false,
 
     @NonNull
-    var scoreRecord: Int = 0
+    var scores: MutableList<ScoreEntity> = mutableListOf()
 
 ) : Serializable

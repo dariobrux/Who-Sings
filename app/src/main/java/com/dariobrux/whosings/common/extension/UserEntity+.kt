@@ -30,11 +30,13 @@ fun List<UserEntity>.toScoreDataList(@ApplicationContext context: Context): List
 
     val result = mutableListOf<Score>()
 
-    val scores = this.mapIndexed { index, userEntity ->
+    val scores = this.sortedByDescending {
+        it.scores.getMaxScore()
+    }.mapIndexed { index, userEntity ->
         ScoreInfo(
             left = "${index + 1}",
             center = userEntity.name,
-            right = userEntity.scoreRecord.toString()
+            right = userEntity.scores.getMaxScore().toString()
         )
     }
 
