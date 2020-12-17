@@ -11,7 +11,7 @@
     <string name="pos">Pos</string>
     <string name="name">Name</string>
     <string name="score">Score</string>
-    <string name="last_score_format">%s, your last score is %d!</string>
+    <string name="your_record_format">%s, your record is %d!</string>
     <string name="score_format">Score: %d</string>
     <string name="lost_format">%s, you have lost!</string>
     <string name="record_format">Record: %d</string>

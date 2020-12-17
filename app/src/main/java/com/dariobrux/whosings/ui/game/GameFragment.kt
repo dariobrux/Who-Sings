@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dariobrux.whosings.R
 import com.dariobrux.whosings.common.Constants
-import com.dariobrux.whosings.common.Resource
 import com.dariobrux.whosings.common.extension.getDimen
 import com.dariobrux.whosings.common.extension.getMaxScore
 import com.dariobrux.whosings.common.manager.ITimerManagerListener
@@ -26,7 +25,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 import javax.inject.Inject
-import javax.inject.Named
 
 /**
  *
@@ -89,7 +87,7 @@ class GameFragment : Fragment(), GameAdapter.OnItemSelectedListener, View.OnClic
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         binding?.apply {
-            txtName.text = getString(R.string.last_score_format, user.name, user.scores.getMaxScore())
+            txtName.text = getString(R.string.your_record_format, user.name, user.scores.getMaxScore())
             recyclerChoice.let { recycler ->
                 recycler.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
                 recycler.adapter = adapter
