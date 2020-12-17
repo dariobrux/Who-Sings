@@ -41,7 +41,7 @@ class GameRepository @Inject constructor(private val api: ApiHelper, private val
 
         kotlin.runCatching {
 
-            api.getChartTracks("top", page, 3, "en", 1, Constants.API_KEY)
+            api.getChartTracks("top", page, 3, "it", 1, Constants.API_KEY)
 
         }.onFailure {
 
